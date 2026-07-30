@@ -1,0 +1,87 @@
+//****************************************************************************//
+/*
+ * Project: Cyber Knight Sec - Scout
+ * Author: Dominic Turner
+ * File: RecommendationEngine.java
+ *
+ * Builds the list of audit recommendations for a ClientDomain.
+ * Shared by the console report and the client-ready HTML/PDF
+ * report so the two never drift out of sync.
+ */
+//****************************************************************************//
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RecommendationEngine {
+
+    public static List<String> build(ClientDomain prospect) {
+        List<String> recommendations = new ArrayList<>();
+
+        // SPF
+        if (prospect.getSpfRecord().equals("MISSING")) {
+            recommendations.add(
+                    "Add or review the SPF record."
+            );
+        } else if (prospect.getSpfLookupStatus().equals("EXCEEDED")) {
+            recommendations.add(
+                    "SPF uses " + prospect.getSpfLookupCount()
+                            + " of the 10 allowed DNS lookups. Most"
+                            + " validators will treat this as a"
+                            + " permanent error and SPF will fail for"
+                            + " ALL mail. Consolidate include: chains"
+                            + " or flatten to static IPs."
+            );
+        } else if (prospect.getSpfLookupStatus().equals("WARNING")) {
+            recommendations.add(
+                    "SPF uses " + prospect.getSpfLookupCount()
+                            + " of the 10 allowed DNS lookups. There's"
+                            + " little headroom left - review before"
+                            + " adding another mail provider."
+            );
+        }
+
+        // DMARC
+        if (prospect.getDmarcRecord().equals("MISSING")) {
+            recommendations.add(
+                    "Add or review the DMARC policy."
+            );
+        } else if (prospect.getDmarcPolicy().equals("NONE")) {
+            recommendations.add(
+                    "DMARC is in monitor-only mode (p=none). Move to"
+                            + " p=quarantine, then p=reject, once reports"
+                            + " confirm legitimate mail is passing."
+            );
+        } else if (prospect.getDmarcPolicy().equals("UNKNOWN")) {
+            recommendations.add(
+                    "DMARC record found but no valid policy tag (p=)"
+                            + " was detected. Review the record for a"
+                            + " formatting error."
+            );
+        }
+
+        // DKIM
+        if (prospect.getDkimRecord().equals("MISSING")) {
+            recommendations.add(
+                    "Add DKIM signing, or re-run with the client's"
+                            + " known selector to confirm."
+            );
+        }
+
+        // All three in place and enforcing
+        if (!prospect.getSpfRecord().equals("MISSING")
+                && !prospect.getDkimRecord().equals("MISSING")
+                && (prospect.getDmarcPolicy().equals("QUARANTINE")
+                || prospect.getDmarcPolicy().equals("REJECT"))) {
+
+            recommendations.add(
+                    "SPF, DKIM, and an enforced DMARC policy are all"
+                            + " in place. Periodically review DMARC"
+                            + " aggregate reports to confirm continued"
+                            + " alignment."
+            );
+        }
+
+        return recommendations;
+    }
+}
