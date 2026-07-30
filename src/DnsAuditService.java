@@ -121,6 +121,7 @@ public class DnsAuditService {
 
                     if (record.toLowerCase().contains("v=dmarc1")) {
                         client.setDmarcRecord(record);
+                        client.setDmarcPolicy(parseDmarcPolicy(record));
                         break;
                     }
                 }
@@ -132,6 +133,38 @@ public class DnsAuditService {
                             + client.getDomainName()
             );
         }
+    }
+
+    private String parseDmarcPolicy(String record) {
+        // The enforcement level lives in the "p=" tag, e.g.
+        // "v=DMARC1; p=reject; rua=...". Tags are separated by
+        // semicolons, so split on those rather than searching for
+        // "p=" directly, which would also match the "sp=" (subdomain
+        // policy) tag.
+        String[] tags = record.split(";");
+
+        for (String tag : tags) {
+            String trimmed = tag.trim();
+
+            if (trimmed.toLowerCase().startsWith("p=")) {
+                String value = trimmed.substring(2).trim().toLowerCase();
+
+                switch (value) {
+                    case "reject":
+                        return "REJECT";
+                    case "quarantine":
+                        return "QUARANTINE";
+                    case "none":
+                        return "NONE";
+                    default:
+                        return "UNKNOWN";
+                }
+            }
+        }
+
+        // A DMARC record without a "p=" tag is malformed; the
+        // required policy tag is missing entirely
+        return "UNKNOWN";
     }
 
     private void findDkimRecord(
@@ -192,19 +225,30 @@ public class DnsAuditService {
         boolean dmarcFound =
                 !client.getDmarcRecord().equals("MISSING");
 
+        boolean dmarcEnforced =
+                dmarcFound
+                        && (client.getDmarcPolicy().equals("QUARANTINE")
+                        || client.getDmarcPolicy().equals("REJECT"));
+
+        String assessment;
+
         // Determine the basic email-authentication status
         if (spfFound && dmarcFound) {
-            client.setAssessment(
-                    "BASIC EMAIL AUTHENTICATION DETECTED"
-            );
+            assessment = "BASIC EMAIL AUTHENTICATION DETECTED";
         } else if (spfFound || dmarcFound) {
-            client.setAssessment(
-                    "PARTIAL EMAIL AUTHENTICATION DETECTED"
-            );
+            assessment = "PARTIAL EMAIL AUTHENTICATION DETECTED";
         } else {
-            client.setAssessment(
-                    "EMAIL AUTHENTICATION GAP DETECTED"
-            );
+            assessment = "EMAIL AUTHENTICATION GAP DETECTED";
         }
+
+        // A published DMARC record that isn't enforcing (p=none, or a
+        // malformed record with no usable policy tag) provides
+        // visibility but doesn't actually block abuse - call it out
+        if (dmarcFound && !dmarcEnforced) {
+            assessment += " - DMARC NOT ENFORCED (p="
+                    + client.getDmarcPolicy().toLowerCase() + ")";
+        }
+
+        client.setAssessment(assessment);
     }
 }
