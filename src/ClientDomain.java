@@ -15,6 +15,7 @@ public class ClientDomain {
     private String domainName;
     private String spfRecord;
     private String dmarcRecord;
+    private String dmarcPolicy;
     private String dkimRecord;
     private String dkimSelector;
     private String assessment;
@@ -24,6 +25,7 @@ public class ClientDomain {
         this.domainName = domainName;
         this.spfRecord = "MISSING";
         this.dmarcRecord = "MISSING";
+        this.dmarcPolicy = "N/A";
         this.dkimRecord = "MISSING";
         this.dkimSelector = "NONE";
         this.assessment = "NOT YET ASSESSED";
@@ -47,6 +49,14 @@ public class ClientDomain {
 
     public void setDmarcRecord(String dmarcRecord) {
         this.dmarcRecord = dmarcRecord;
+    }
+
+    public String getDmarcPolicy() {
+        return dmarcPolicy;
+    }
+
+    public void setDmarcPolicy(String dmarcPolicy) {
+        this.dmarcPolicy = dmarcPolicy;
     }
 
     public String getDkimRecord() {
