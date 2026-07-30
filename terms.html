@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service | Cyber Knight Sec</title>
+  <meta name="description" content="Terms of Service for Cyber Knight Sec email authentication audits, including public DNS scope, informational findings, DNS change approval, payment, refunds, and liability limitations." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://cyberknightsec.com/terms.html" />
+  <meta name="theme-color" content="#0F2438" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0F2438;
+      --bg2: #132D47;
+      --panel: #183651;
+      --panel2: #203F5C;
+      --line: #3F5870;
+      --line2: rgba(215,222,230,.18);
+      --text: #D7DEE6;
+      --muted: #AAB7C4;
+      --white: #FFFFFF;
+      --green: #2F6B4F;
+      --green2: #3E7D60;
+      --amber: #D6A25A;
+      --shadow: 0 24px 80px rgba(0,0,0,.28);
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Rajdhani', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: .22;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; }
+    .container { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,36,56,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line2);
+    }
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: .12em;
+      color: var(--white);
+      font-size: .98rem;
+      white-space: nowrap;
+    }
+    .brand svg { width: 33px; height: 37px; flex: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--white); }
+
+    .hero {
+      position: relative;
+      padding: 76px 0 54px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(47,107,79,.22) 0%, rgba(47,107,79,0) 44%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      border-bottom: 1px solid var(--line2);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: .34;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 68% 36%, black 10%, transparent 75%);
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--green2);
+      font-family: var(--font-mono);
+      font-size: .74rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--green2); }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 5.25rem);
+      line-height: .98;
+      color: var(--white);
+      margin-bottom: 18px;
+      max-width: 820px;
+    }
+    .hero-copy {
+      max-width: 740px;
+      color: var(--muted);
+      font-size: 1.16rem;
+    }
+    .meta-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 34px;
+      border: 1px solid var(--line);
+      background: rgba(15,36,56,.68);
+    }
+    .meta-strip div { padding: 16px 18px; border-right: 1px solid var(--line); }
+    .meta-strip div:last-child { border-right: 0; }
+    .meta-strip small {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .meta-strip strong { color: var(--white); }
+
+    main { padding: 72px 0 88px; }
+    .terms-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 34px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 102px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .toc-title {
+      font-family: var(--font-mono);
+      color: var(--green2);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      margin-bottom: 14px;
+    }
+    .toc ul { list-style: none; display: grid; gap: 10px; }
+    .toc a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .toc a:hover { color: var(--white); }
+
+    .content { display: grid; gap: 22px; }
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--green2);
+    }
+    .section.warning::before { background: var(--amber); }
+    .section-label {
+      font-family: var(--font-mono);
+      color: var(--green2);
+      font-size: .68rem;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+    .warning .section-label { color: var(--amber); }
+    h2 {
+      font-family: var(--font-display);
+      color: var(--white);
+      font-size: 1.45rem;
+      margin-bottom: 12px;
+    }
+    p { color: var(--muted); }
+    .section p + p { margin-top: 12px; }
+    .section ul {
+      margin: 14px 0 0 20px;
+      color: var(--muted);
+      display: grid;
+      gap: 8px;
+    }
+    .section strong { color: var(--white); }
+
+    .notice {
+      background: rgba(47,107,79,.1);
+      border: 1px solid rgba(62,125,96,.46);
+      border-left: 3px solid var(--green2);
+      padding: 20px;
+      color: var(--muted);
+    }
+    .notice strong { color: var(--white); }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line2);
+      background: #0B1C2C;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      color: var(--muted);
+      font-size: .86rem;
+      flex-wrap: wrap;
+    }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-inner a { color: var(--text); text-decoration: none; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .terms-grid { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .meta-strip { grid-template-columns: 1fr; }
+      .meta-strip div { border-right: 0; border-bottom: 1px solid var(--line); }
+      .meta-strip div:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 17px; }
+      .container { width: min(100% - 28px, 1040px); }
+      .brand { font-size: .78rem; letter-spacing: .08em; }
+      .hero { padding-top: 52px; }
+      .section { padding: 22px; }
+      h1 { font-size: 2.55rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand" aria-label="Cyber Knight Sec home">
+        <svg viewBox="0 0 34 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M17 1L3 6V19C3 27.5 17 37 17 37C17 37 31 27.5 31 19V6L17 1Z" stroke="#2F6B4F" stroke-width="1.6" fill="rgba(47,107,79,.12)"/>
+          <path d="M17 7L8 10V18C8 23 17 30 17 30C17 30 26 23 26 18V10L17 7Z" stroke="#AAB7C4" stroke-width="1" fill="rgba(15,36,56,.65)"/>
+          <line x1="17" y1="10" x2="17" y2="27" stroke="#2F6B4F" stroke-width="1.5"/>
+          <line x1="9" y1="18" x2="25" y2="18" stroke="#2F6B4F" stroke-width="1.5"/>
+        </svg>
+        Cyber Knight Sec
+      </a>
+      <ul class="nav-links">
+        <li><a href="#scope">Scope</a></li>
+        <li><a href="#findings">Findings</a></li>
+        <li><a href="#changes">DNS Changes</a></li>
+        <li><a href="#payment">Payment</a></li>
+        <li><a href="#liability">Liability</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="eyebrow">Terms of Service</div>
+      <h1>Service Conditions for Cyber Knight Sec</h1>
+      <p class="hero-copy">These terms explain the scope, limitations, payment conditions, DNS change approval requirements, and liability provisions that apply to Cyber Knight Sec email authentication audits and related services.</p>
+      <div class="meta-strip">
+        <div><small>Effective Date</small><strong>July 30, 2026</strong></div>
+        <div><small>Business Operator</small><strong>Evergreen Supply Solutions LLC</strong></div>
+        <div><small>Contact</small><strong>engage@cyberknightsec.com</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="terms-grid">
+      <aside class="toc" aria-label="Terms sections">
+        <div class="toc-title">On This Page</div>
+        <ul>
+          <li><a href="#acceptance">Acceptance of Terms</a></li>
+          <li><a href="#scope">Audit Scope</a></li>
+          <li><a href="#findings">Informational Findings</a></li>
+          <li><a href="#threats">No Complete Threat Guarantee</a></li>
+          <li><a href="#changes">DNS Change Approval</a></li>
+          <li><a href="#payment">Payment Terms</a></li>
+          <li><a href="#refunds">Refund Terms</a></li>
+          <li><a href="#client">Client Responsibilities</a></li>
+          <li><a href="#liability">Limitation of Liability</a></li>
+          <li><a href="#changes-policy">Changes to Terms</a></li>
+        </ul>
+      </aside>
+
+      <div class="content">
+        <section class="section" id="acceptance">
+          <div class="section-label">01 / Acceptance</div>
+          <h2>Acceptance of Terms</h2>
+          <p>By requesting, purchasing, authorizing, or using a Cyber Knight Sec service, the client agrees to these Terms of Service and any written proposal, invoice, statement of work, or service description associated with the engagement.</p>
+          <p>If a written proposal or statement of work conflicts with these general terms, the written project-specific document will control for that engagement.</p>
+        </section>
+
+        <section class="section" id="scope">
+          <div class="section-label">02 / Audit Scope</div>
+          <h2>The Audit Is Based Primarily on Public DNS Information</h2>
+          <p>The Starter Email Authentication Audit is primarily a read-only review of publicly available domain and email-authentication records.</p>
+          <p>Depending on the agreed scope, the review may include:</p>
+          <ul>
+            <li>SPF records and basic SPF syntax.</li>
+            <li>DKIM selectors that are provided by the client or commonly associated with identified email providers.</li>
+            <li>DMARC policy, reporting, and alignment settings.</li>
+            <li>MX, TXT, nameserver, and related DNS records.</li>
+            <li>Mail-provider identification and domain-configuration observations.</li>
+            <li>A plain-English executive report and prioritized recommendations.</li>
+          </ul>
+          <p>Unless expressly agreed in writing, the audit does not include penetration testing, mailbox access, password testing, malware analysis, employee monitoring, internal account review, vulnerability exploitation, or review of private systems.</p>
+        </section>
+
+        <section class="section" id="findings">
+          <div class="section-label">03 / Findings</div>
+          <h2>Findings Are Informational</h2>
+          <p>Audit findings, scores, recommendations, and risk classifications are provided for informational and decision-support purposes. They are based on the records, configuration data, documentation, and client-provided information available at the time of review.</p>
+          <p>Findings are not legal advice, regulatory certification, insurance advice, financial advice, or a guarantee of compliance with any law, grant requirement, contract, cybersecurity framework, or industry standard.</p>
+          <p>The client remains responsible for evaluating recommendations in the context of its own systems, vendors, risk tolerance, contractual obligations, and operational needs.</p>
+        </section>
+
+        <section class="section warning" id="threats">
+          <div class="section-label">04 / Threat Coverage</div>
+          <h2>No Guarantee That All Threats Will Be Identified</h2>
+          <p>Cyber Knight Sec does not guarantee that an audit will identify every security weakness, email-delivery problem, spoofing method, phishing campaign, unauthorized sender, misconfiguration, or future threat.</p>
+          <p>Public DNS records provide only a limited view of an organization’s security posture. Risks may exist in private systems, user accounts, vendor configurations, endpoint devices, cloud platforms, mail-flow rules, or internal procedures that are outside the agreed scope.</p>
+          <p>No audit can guarantee that a domain will never be spoofed, that every fraudulent message will be blocked, or that every legitimate message will be delivered.</p>
+        </section>
+
+        <section class="section warning" id="changes">
+          <div class="section-label">05 / Authorization</div>
+          <h2>The Client Must Approve All DNS Changes</h2>
+          <p>Cyber Knight Sec will not publish, modify, delete, or replace a DNS record without authorization from the domain owner or an authorized administrator.</p>
+          <p>Before any implementation work begins, the client must approve the proposed change, the affected record, and the expected purpose of the change. The client is responsible for confirming that the person granting approval has authority over the domain and related systems.</p>
+          <p>DNS changes may affect email delivery, vendor integrations, website services, marketing platforms, fundraising tools, or other connected systems. The client must disclose known authorized senders and service providers before enforcement policies are strengthened.</p>
+          <p>DNS propagation, caching, registrar limitations, third-party outages, and vendor-specific behavior may delay or affect results after a change is made.</p>
+        </section>
+
+        <section class="section" id="payment">
+          <div class="section-label">06 / Payment</div>
+          <h2>Payment Terms</h2>
+          <p>Unless otherwise stated in writing, payment is due before audit work begins. Cyber Knight Sec may require full payment, a deposit, or milestone payments depending on the service.</p>
+          <p>Invoices will identify the service, price, due date, and any approved add-on work. Late or unpaid balances may result in delayed delivery, suspension of work, or withholding of final reports and implementation support.</p>
+          <p>Third-party costs, including registrar fees, provider fees, paid monitoring tools, or vendor support charges, are not included unless specifically listed in writing.</p>
+        </section>
+
+        <section class="section" id="refunds">
+          <div class="section-label">07 / Refunds</div>
+          <h2>Refund Terms</h2>
+          <p>Because audit work begins with research, record collection, analysis, and report preparation, payments are generally nonrefundable once substantive work has started.</p>
+          <p>If the client cancels before work begins, Cyber Knight Sec may issue a full refund, less any nonrefundable payment-processing charges or third-party costs already incurred.</p>
+          <p>If Cyber Knight Sec is unable to perform the agreed service, the client may receive a full or partial refund based on the portion of work not completed.</p>
+          <p>Dissatisfaction with a valid finding, risk score, recommendation, or DNS result is not by itself grounds for a refund. Any refund approved outside these terms is discretionary and must be confirmed in writing.</p>
+        </section>
+
+        <section class="section" id="client">
+          <div class="section-label">08 / Client Duties</div>
+          <h2>Client Responsibilities</h2>
+          <p>The client agrees to:</p>
+          <ul>
+            <li>Provide accurate domain, provider, vendor, and contact information.</li>
+            <li>Disclose known systems that send email using the domain.</li>
+            <li>Provide necessary DKIM selectors or administrative information when required.</li>
+            <li>Maintain backups and document current DNS records before approved changes.</li>
+            <li>Review and approve recommendations before implementation.</li>
+            <li>Notify Cyber Knight Sec promptly of service-provider changes or unexpected email-delivery issues.</li>
+            <li>Use the service only for domains and systems the client is authorized to assess.</li>
+          </ul>
+        </section>
+
+        <section class="section warning" id="liability">
+          <div class="section-label">09 / Liability</div>
+          <h2>Limitations of Liability</h2>
+          <p>To the fullest extent permitted by law, Cyber Knight Sec and Evergreen Supply Solutions LLC will not be liable for indirect, incidental, special, punitive, exemplary, or consequential damages arising from or related to the service.</p>
+          <p>This includes, without limitation, lost revenue, lost donations, lost data, business interruption, reputational harm, email-delivery disruption, missed communications, third-party claims, or losses caused by vendors, registrars, hosting providers, email platforms, DNS providers, or receiving mail systems.</p>
+          <p>Cyber Knight Sec is not responsible for damage caused by:</p>
+          <ul>
+            <li>Incomplete, inaccurate, or withheld client information.</li>
+            <li>Unapproved changes made by the client or a third party.</li>
+            <li>Third-party outages, provider errors, DNS propagation, or registrar limitations.</li>
+            <li>Threats, vulnerabilities, or systems outside the agreed scope.</li>
+            <li>The client’s failure to implement or maintain recommended controls.</li>
+          </ul>
+          <p>To the fullest extent permitted by law, the total liability of Cyber Knight Sec and Evergreen Supply Solutions LLC for any claim related to a service will not exceed the amount actually paid by the client for the specific service giving rise to the claim.</p>
+        </section>
+
+        <section class="section" id="changes-policy">
+          <div class="section-label">10 / Updates</div>
+          <h2>Changes to These Terms</h2>
+          <p>Cyber Knight Sec may revise these terms as services, business practices, legal requirements, or third-party dependencies change. The effective date shown at the top of the page indicates the latest revision.</p>
+          <p>Changes will apply to new services and renewals unless otherwise agreed in writing.</p>
+        </section>
+
+        <div class="notice">
+          <strong>Business identity:</strong> Cyber Knight Sec is a cybersecurity service brand operated by Evergreen Supply Solutions LLC.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 Cyber Knight Sec. Operated by Evergreen Supply Solutions LLC.</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="ck-email-authentication-sample-report.html">Sample Report</a>
+        <a href="mailto:engage@cyberknightsec.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

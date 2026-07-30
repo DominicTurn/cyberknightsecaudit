@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy & Service Conditions | Cyber Knight Sec</title>
+  <meta name="description" content="Privacy Policy and service conditions for Cyber Knight Sec, including form data collection, retention, access, deletion requests, and audit limitations." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://cyberknightsec.com/privacy.html" />
+  <meta name="theme-color" content="#0F2438" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0F2438;
+      --bg2: #132D47;
+      --panel: #183651;
+      --panel2: #203F5C;
+      --line: #3F5870;
+      --line2: rgba(215,222,230,.18);
+      --text: #D7DEE6;
+      --muted: #AAB7C4;
+      --white: #FFFFFF;
+      --green: #2F6B4F;
+      --green2: #3E7D60;
+      --amber: #D6A25A;
+      --shadow: 0 24px 80px rgba(0,0,0,.28);
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Rajdhani', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: .22;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; }
+    .container { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,36,56,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line2);
+    }
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: .12em;
+      color: var(--white);
+      font-size: .98rem;
+      white-space: nowrap;
+    }
+    .brand svg { width: 33px; height: 37px; flex: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--white); }
+
+    .hero {
+      position: relative;
+      padding: 76px 0 54px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(47,107,79,.22) 0%, rgba(47,107,79,0) 44%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      border-bottom: 1px solid var(--line2);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: .34;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 68% 36%, black 10%, transparent 75%);
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--green2);
+      font-family: var(--font-mono);
+      font-size: .74rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--green2); }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 5.25rem);
+      line-height: .98;
+      color: var(--white);
+      margin-bottom: 18px;
+      max-width: 820px;
+    }
+    .hero-copy {
+      max-width: 740px;
+      color: var(--muted);
+      font-size: 1.16rem;
+    }
+    .meta-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 34px;
+      border: 1px solid var(--line);
+      background: rgba(15,36,56,.68);
+    }
+    .meta-strip div { padding: 16px 18px; border-right: 1px solid var(--line); }
+    .meta-strip div:last-child { border-right: 0; }
+    .meta-strip small {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .meta-strip strong { color: var(--white); }
+
+    main { padding: 72px 0 88px; }
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 34px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 102px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .toc-title {
+      font-family: var(--font-mono);
+      color: var(--green2);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      margin-bottom: 14px;
+    }
+    .toc ul { list-style: none; display: grid; gap: 10px; }
+    .toc a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .toc a:hover { color: var(--white); }
+
+    .content { display: grid; gap: 22px; }
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--green2);
+    }
+    .section.warning::before { background: var(--amber); }
+    .section-label {
+      font-family: var(--font-mono);
+      color: var(--green2);
+      font-size: .68rem;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+    .warning .section-label { color: var(--amber); }
+    h2 {
+      font-family: var(--font-display);
+      color: var(--white);
+      font-size: 1.45rem;
+      margin-bottom: 12px;
+    }
+    p { color: var(--muted); }
+    .section p + p { margin-top: 12px; }
+    .section ul {
+      margin: 14px 0 0 20px;
+      color: var(--muted);
+      display: grid;
+      gap: 8px;
+    }
+    .section strong { color: var(--white); }
+    .contact-box {
+      margin-top: 16px;
+      background: var(--panel2);
+      border: 1px solid var(--line2);
+      padding: 16px;
+      color: var(--text);
+    }
+    .contact-box a { color: var(--white); }
+
+    .notice {
+      background: rgba(47,107,79,.1);
+      border: 1px solid rgba(62,125,96,.46);
+      border-left: 3px solid var(--green2);
+      padding: 20px;
+      color: var(--muted);
+    }
+    .notice strong { color: var(--white); }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line2);
+      background: #0B1C2C;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      color: var(--muted);
+      font-size: .86rem;
+      flex-wrap: wrap;
+    }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-inner a { color: var(--text); text-decoration: none; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .policy-grid { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .meta-strip { grid-template-columns: 1fr; }
+      .meta-strip div { border-right: 0; border-bottom: 1px solid var(--line); }
+      .meta-strip div:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 17px; }
+      .container { width: min(100% - 28px, 1040px); }
+      .brand { font-size: .78rem; letter-spacing: .08em; }
+      .hero { padding-top: 52px; }
+      .section { padding: 22px; }
+      h1 { font-size: 2.55rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand" aria-label="Cyber Knight Sec home">
+        <svg viewBox="0 0 34 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M17 1L3 6V19C3 27.5 17 37 17 37C17 37 31 27.5 31 19V6L17 1Z" stroke="#2F6B4F" stroke-width="1.6" fill="rgba(47,107,79,.12)"/>
+          <path d="M17 7L8 10V18C8 23 17 30 17 30C17 30 26 23 26 18V10L17 7Z" stroke="#AAB7C4" stroke-width="1" fill="rgba(15,36,56,.65)"/>
+          <line x1="17" y1="10" x2="17" y2="27" stroke="#2F6B4F" stroke-width="1.5"/>
+          <line x1="9" y1="18" x2="25" y2="18" stroke="#2F6B4F" stroke-width="1.5"/>
+        </svg>
+        Cyber Knight Sec
+      </a>
+      <ul class="nav-links">
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#retention">Retention</a></li>
+        <li><a href="#deletion">Deletion</a></li>
+        <li><a href="#terms">Service Conditions</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="eyebrow">Privacy & Service Conditions</div>
+      <h1>How We Handle Your Information</h1>
+      <p class="hero-copy">This page explains what information Cyber Knight Sec collects through its website forms, how that information is used, who may access it, how long it is retained, and the conditions that apply to email authentication audit services.</p>
+      <div class="meta-strip">
+        <div><small>Effective Date</small><strong>July 30, 2026</strong></div>
+        <div><small>Business Operator</small><strong>Evergreen Supply Solutions LLC</strong></div>
+        <div><small>Contact</small><strong>engage@cyberknightsec.com</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="policy-grid">
+      <aside class="toc" aria-label="Policy sections">
+        <div class="toc-title">On This Page</div>
+        <ul>
+          <li><a href="#privacy">Information We Collect</a></li>
+          <li><a href="#use">Why We Collect It</a></li>
+          <li><a href="#retention">How Long We Retain It</a></li>
+          <li><a href="#access">Who Can Access It</a></li>
+          <li><a href="#deletion">Deletion Requests</a></li>
+          <li><a href="#security">Data Security</a></li>
+          <li><a href="#terms">Service Conditions</a></li>
+          <li><a href="#limitations">Audit Limitations</a></li>
+          <li><a href="#changes">Policy Changes</a></li>
+        </ul>
+      </aside>
+
+      <div class="content">
+        <section class="section" id="privacy">
+          <div class="section-label">01 / Privacy</div>
+          <h2>Information We Collect</h2>
+          <p>Cyber Knight Sec may collect information that you voluntarily submit through a contact or audit request form. This may include:</p>
+          <ul>
+            <li>Your first and last name.</li>
+            <li>Your organization name.</li>
+            <li>Your organization email address.</li>
+            <li>The domain name you want reviewed.</li>
+            <li>The service or package you are interested in.</li>
+            <li>Information you include in an optional message field, such as your email provider, marketing platform, CRM, or recent DNS changes.</li>
+          </ul>
+          <p>We may also receive standard technical information generated when you visit the website, such as your IP address, browser type, device type, referral source, and basic server log information.</p>
+        </section>
+
+        <section class="section" id="use">
+          <div class="section-label">02 / Use of Information</div>
+          <h2>Why We Collect It</h2>
+          <p>We use the information you provide to:</p>
+          <ul>
+            <li>Respond to your inquiry.</li>
+            <li>Confirm the domain and scope of a requested audit.</li>
+            <li>Prepare proposals, invoices, reports, and service communications.</li>
+            <li>Provide SPF, DKIM, DMARC, DNS health, and domain-configuration review services.</li>
+            <li>Prevent spam, fraud, abuse, or misuse of our forms and systems.</li>
+            <li>Maintain business, accounting, and service records.</li>
+          </ul>
+          <p>Cyber Knight Sec does not sell your personal information.</p>
+        </section>
+
+        <section class="section" id="retention">
+          <div class="section-label">03 / Retention</div>
+          <h2>How Long We Retain It</h2>
+          <p>Inquiry and contact-form information may be retained for up to <strong>24 months</strong> after the last meaningful communication, unless a longer period is necessary for legal, tax, accounting, fraud-prevention, or contractual purposes.</p>
+          <p>Client records related to completed services, payments, reports, and invoices may be retained for up to <strong>seven years</strong> where reasonably necessary for business and recordkeeping obligations.</p>
+          <p>Information that is no longer needed may be deleted, anonymized, or securely archived.</p>
+        </section>
+
+        <section class="section" id="access">
+          <div class="section-label">04 / Access</div>
+          <h2>Who Can Access It</h2>
+          <p>Access is limited to individuals and service providers who need the information to operate the business or deliver the requested service. This may include:</p>
+          <ul>
+            <li>Authorized personnel operating Cyber Knight Sec.</li>
+            <li>Website hosting, form-processing, email, invoicing, payment, and cloud-storage providers.</li>
+            <li>Professional advisers such as accountants, attorneys, or insurers when reasonably necessary.</li>
+            <li>Government or regulatory authorities when disclosure is legally required.</li>
+          </ul>
+          <p>Service providers are expected to process information only for the purpose of providing their services.</p>
+        </section>
+
+        <section class="section" id="deletion">
+          <div class="section-label">05 / Deletion</div>
+          <h2>How to Request Deletion</h2>
+          <p>You may request access to, correction of, or deletion of personal information associated with your inquiry by contacting Cyber Knight Sec.</p>
+          <div class="contact-box">
+            Email: <a href="mailto:engage@cyberknightsec.com">engage@cyberknightsec.com</a><br />
+            Suggested subject line: <strong>Privacy Request</strong>
+          </div>
+          <p>To protect against unauthorized requests, we may ask you to confirm the email address or organization associated with the original submission. Some information may be retained where required for legal, tax, accounting, dispute-resolution, or security purposes.</p>
+        </section>
+
+        <section class="section" id="security">
+          <div class="section-label">06 / Security</div>
+          <h2>How We Protect Information</h2>
+          <p>Cyber Knight Sec uses reasonable administrative and technical safeguards designed to protect submitted information from unauthorized access, loss, misuse, or alteration. However, no website, email system, or online storage method can be guaranteed to be completely secure.</p>
+          <p>Do not submit passwords, payment-card numbers, private encryption keys, confidential employee data, or other highly sensitive information through the public contact form.</p>
+        </section>
+
+        <section class="section warning" id="terms">
+          <div class="section-label">07 / Service Conditions</div>
+          <h2>Terms and Service Conditions</h2>
+          <p>By requesting or purchasing a Cyber Knight Sec service, you acknowledge and agree to the following conditions:</p>
+          <ul>
+            <li>The Starter Email Authentication Audit is primarily a <strong>read-only review of publicly available DNS and email-authentication records</strong>.</li>
+            <li>The audit may include SPF, DKIM, DMARC, MX, TXT, DNS health, domain configuration, provider identification, and a plain-English executive report.</li>
+            <li>You represent that you are authorized to request an assessment of the submitted domain.</li>
+            <li>The Starter Audit does not include penetration testing, exploitation, inbox access, password testing, malware analysis, internal account review, employee monitoring, or guaranteed identification of every security risk.</li>
+            <li>DKIM findings may depend on selectors supplied by the client or selectors commonly associated with identified providers. A public review may not identify every active DKIM selector.</li>
+            <li>Recommendations are based on the information available at the time of review and should be validated against the organization’s actual list of approved email services.</li>
+            <li>No DNS record should be changed without approval from the domain owner or authorized administrator.</li>
+            <li>Client delays, incomplete provider information, DNS propagation, vendor limitations, and third-party outages may affect delivery or implementation timelines.</li>
+            <li>Payment terms, project scope, delivery date, and any implementation assistance will be confirmed before work begins.</li>
+            <li>Unless otherwise agreed in writing, audit fees cover the assessment and report only. Ongoing monitoring, remediation, and provider coordination are separate services.</li>
+          </ul>
+        </section>
+
+        <section class="section warning" id="limitations">
+          <div class="section-label">08 / Limitations</div>
+          <h2>No Guarantee of Complete Protection</h2>
+          <p>Cyber Knight Sec provides risk findings and recommendations based on the agreed scope. No audit can guarantee that a domain will never be spoofed, that every phishing message will be blocked, that every legitimate email will be delivered, or that every security weakness will be identified.</p>
+          <p>The effectiveness of SPF, DKIM, and DMARC also depends on correct configuration by email providers, third-party platforms, DNS administrators, and receiving mail systems.</p>
+        </section>
+
+        <section class="section" id="changes">
+          <div class="section-label">09 / Updates</div>
+          <h2>Changes to This Policy</h2>
+          <p>Cyber Knight Sec may update this page as services, legal requirements, vendors, or business practices change. The effective date shown at the top of the page indicates the latest revision.</p>
+        </section>
+
+        <div class="notice">
+          <strong>Business identity:</strong> Cyber Knight Sec is a cybersecurity service brand operated by Evergreen Supply Solutions LLC.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 Cyber Knight Sec. Operated by Evergreen Supply Solutions LLC.</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="ck-email-authentication-sample-report.html">Sample Report</a>
+        <a href="mailto:engage@cyberknightsec.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
