@@ -102,6 +102,13 @@ public class App {
         System.out.println(
                 "DMARC Record:  " + prospect.getDmarcRecord()
         );
+
+        if (!prospect.getDmarcRecord().equals("MISSING")) {
+            System.out.println(
+                    "DMARC Policy:  " + prospect.getDmarcPolicy()
+            );
+        }
+
         System.out.println(
                 "DKIM Record:   " + prospect.getDkimRecord()
         );
@@ -130,6 +137,19 @@ public class App {
             System.out.println(
                     "Recommendation: Add or review the DMARC policy."
             );
+        } else if (prospect.getDmarcPolicy().equals("NONE")) {
+            System.out.println(
+                    "Recommendation: DMARC is in monitor-only mode"
+                            + " (p=none). Move to p=quarantine, then"
+                            + " p=reject, once reports confirm legitimate"
+                            + " mail is passing."
+            );
+        } else if (prospect.getDmarcPolicy().equals("UNKNOWN")) {
+            System.out.println(
+                    "Recommendation: DMARC record found but no valid"
+                            + " policy tag (p=) was detected. Review the"
+                            + " record for a formatting error."
+            );
         }
 
         if (prospect.getDkimRecord().equals("MISSING")) {
@@ -140,12 +160,15 @@ public class App {
         }
 
         if (!prospect.getSpfRecord().equals("MISSING")
-                && !prospect.getDmarcRecord().equals("MISSING")
-                && !prospect.getDkimRecord().equals("MISSING")) {
+                && !prospect.getDkimRecord().equals("MISSING")
+                && (prospect.getDmarcPolicy().equals("QUARANTINE")
+                || prospect.getDmarcPolicy().equals("REJECT"))) {
 
             System.out.println(
-                    "Recommendation: Review SPF, DKIM, and DMARC policy"
-                            + " strength."
+                    "Recommendation: SPF, DKIM, and an enforced DMARC"
+                            + " policy are all in place. Periodically"
+                            + " review DMARC aggregate reports to confirm"
+                            + " continued alignment."
             );
         }
 
