@@ -62,7 +62,7 @@ public class DnsAuditService {
             // Request the TXT records from the main domain
             Attributes attributes = context.getAttributes(
                     "dns:/" + client.getDomainName(),
-                    new String[]{"TXT"}
+                    new []{"TXT"}
             );
 
             Attribute txtRecords = attributes.get("TXT");
@@ -70,7 +70,7 @@ public class DnsAuditService {
             if (txtRecords != null) {
                 // Search each TXT record for the SPF identifier
                 for (int i = 0; i < txtRecords.size(); i++) {
-                    String record = txtRecords.get(i).toString();
+                     record = txtRecords.get(i).toString();
 
                     // Remove quotation marks added to the DNS response
                     record = record.replace("\"", "");
