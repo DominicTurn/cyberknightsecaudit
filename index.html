@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Security Audit for Nonprofits | SPF, DKIM, DMARC & DNS | Cyber Knight Sec</title>
+  <meta name="description" content="Cyber Knight Sec reviews SPF, DKIM, DMARC and DNS records for nonprofits and small organizations. Get a plain-English email security audit report within 48 hours. Starting at $299." />
+  <meta name="keywords" content="SPF audit, DKIM audit, DMARC audit, DNS review, email security audit, nonprofit cybersecurity, email spoofing protection, phishing prevention, domain security, Cyber Knight Sec" />
+  <meta name="author" content="knightquill" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://cyberknightsec.com/" />
+  <meta property="og:title" content="Email Security Audit for Nonprofits | Cyber Knight Sec" />
+  <meta property="og:description" content="Protect your domain from spoofing and phishing with an SPF, DKIM, DMARC and DNS audit delivered in plain English within 48 hours." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cyberknightsec.com/" />
+  <meta name="theme-color" content="#0F2438" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0F2438;
+      --bg2: #132D47;
+      --panel: #183651;
+      --panel2: #203F5C;
+      --line: #3F5870;
+      --line2: rgba(215,222,230,.18);
+      --text: #D7DEE6;
+      --muted: #AAB7C4;
+      --white: #FFFFFF;
+      --green: #2F6B4F;
+      --green2: #3E7D60;
+      --red: #B23A48;
+      --cream: #F8FAFC;
+      --shadow: 0 24px 80px rgba(0,0,0,.28);
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Rajdhani', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: .22;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,36,56,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line2);
+    }
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: .12em;
+      color: var(--white);
+      font-size: .98rem;
+      white-space: nowrap;
+    }
+    .brand svg { width: 33px; height: 37px; flex: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      font-size: .84rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--white); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 13px 24px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-family: var(--font-display);
+      font-size: .78rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--green); color: var(--white); box-shadow: 0 16px 36px rgba(47,107,79,.28); }
+    .btn-primary:hover { background: var(--green2); box-shadow: 0 18px 44px rgba(47,107,79,.36); }
+    .btn-secondary { border-color: var(--line); color: var(--text); background: rgba(255,255,255,.03); }
+    .btn-secondary:hover { border-color: var(--green); color: var(--white); }
+    .btn-nav { min-height: 42px; padding: 10px 18px; font-size: .7rem; }
+
+    .hero {
+      position: relative;
+      padding: 84px 0 44px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 78% 26%, rgba(47,107,79,.22) 0%, rgba(47,107,79,0) 44%),
+        radial-gradient(ellipse at 20% 80%, rgba(178,58,72,.10) 0%, rgba(178,58,72,0) 40%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: .42;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 62% 42%, black 10%, transparent 75%);
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--green2);
+      font-family: var(--font-mono);
+      font-size: .76rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--green2); }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.7rem, 6vw, 5.85rem);
+      line-height: .96;
+      letter-spacing: .01em;
+      color: var(--white);
+      margin-bottom: 22px;
+      max-width: 790px;
+    }
+    .hero-copy {
+      max-width: 615px;
+      color: var(--muted);
+      font-size: 1.22rem;
+      line-height: 1.64;
+      margin-bottom: 28px;
+    }
+    .hero-copy strong { color: var(--text); font-weight: 700; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 24px; }
+    .micro-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 22px;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+    .micro-proof span { display: inline-flex; gap: 7px; align-items: center; }
+    .check { color: var(--green2); font-weight: 900; }
+
+    .hero-card {
+      background: rgba(24,54,81,.78);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+    .audit-card-top { display: flex; justify-content: space-between; gap: 18px; align-items: start; margin-bottom: 20px; }
+    .card-kicker {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--green2);
+      margin-bottom: 8px;
+    }
+    .card-title { font-family: var(--font-display); color: var(--white); font-size: 1.55rem; line-height: 1.1; }
+    .price { text-align: right; color: var(--white); font-family: var(--font-display); font-size: 2.3rem; font-weight: 900; line-height: 1; }
+    .price small { display: block; font-family: var(--font-body); font-size: .82rem; color: var(--muted); font-weight: 600; margin-top: 4px; }
+    .included {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      list-style: none;
+      margin: 22px 0;
+    }
+    .included li {
+      padding: 11px 12px;
+      border: 1px solid var(--line2);
+      background: rgba(255,255,255,.035);
+      font-size: .94rem;
+      color: var(--text);
+      display: flex;
+      gap: 9px;
+      align-items: start;
+    }
+    .mini-note {
+      color: var(--muted);
+      font-size: .9rem;
+      border-top: 1px solid var(--line2);
+      padding-top: 16px;
+    }
+
+    .stats-strip {
+      position: relative;
+      z-index: 2;
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--line);
+      background: rgba(15,36,56,.72);
+      backdrop-filter: blur(10px);
+    }
+    .stat { padding: 18px 20px; border-right: 1px solid var(--line); }
+    .stat:last-child { border-right: 0; }
+    .stat strong { display: block; font-family: var(--font-display); color: var(--white); font-size: 1.35rem; line-height: 1.1; margin-bottom: 5px; }
+    .stat span { display: block; font-family: var(--font-mono); font-size: .67rem; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+
+    section { padding: 86px 0; }
+    .section-head { max-width: 760px; margin-bottom: 34px; }
+    .label { font-family: var(--font-mono); color: var(--green2); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { font-family: var(--font-display); color: var(--white); font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1.08; margin-bottom: 14px; }
+    .section-lead { color: var(--muted); max-width: 660px; }
+
+    .problem { background: var(--bg); }
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .problem-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 28px;
+      min-height: 220px;
+    }
+    .problem-card strong { display: block; font-family: var(--font-display); color: var(--white); font-size: 1.15rem; margin-bottom: 10px; }
+    .problem-card p { color: var(--muted); font-size: .96rem; }
+    .problem-card .icon { width: 42px; height: 42px; margin-bottom: 18px; color: var(--green2); }
+
+    .included-section { background: var(--bg2); border-top: 1px solid var(--line2); border-bottom: 1px solid var(--line2); }
+    .audit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .audit-item {
+      background: rgba(15,36,56,.65);
+      border: 1px solid var(--line);
+      padding: 24px;
+      min-height: 238px;
+    }
+    .audit-item .code { font-family: var(--font-mono); color: var(--green2); font-size: .78rem; letter-spacing: .15em; margin-bottom: 13px; }
+    .audit-item h3 { font-family: var(--font-display); color: var(--white); font-size: 1.15rem; margin-bottom: 10px; }
+    .audit-item p { color: var(--muted); font-size: .94rem; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; counter-reset: step; }
+    .step {
+      counter-increment: step;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      position: relative;
+    }
+    .step::before {
+      content: '0' counter(step);
+      display: block;
+      color: rgba(62,125,96,.65);
+      font-family: var(--font-display);
+      font-size: 2.3rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+    .step h3 { color: var(--white); font-family: var(--font-display); font-size: 1.06rem; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: .94rem; }
+
+    .pricing { background: var(--bg2); border-top: 1px solid var(--line2); border-bottom: 1px solid var(--line2); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+    .price-card {
+      border: 1px solid var(--line);
+      background: rgba(24,54,81,.72);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      min-height: 540px;
+      position: relative;
+      overflow: hidden;
+    }
+    .price-card.featured { border-color: var(--green2); box-shadow: var(--shadow); transform: translateY(-10px); }
+    .badge {
+      display: inline-flex;
+      align-self: flex-start;
+      margin-bottom: 16px;
+      color: var(--white);
+      background: var(--green);
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+    }
+    .package-name { font-family: var(--font-display); color: var(--white); font-size: 1.45rem; margin-bottom: 8px; }
+    .package-price { font-family: var(--font-display); color: var(--white); font-size: 3rem; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+    .package-price span { font-family: var(--font-body); font-size: 1rem; color: var(--muted); }
+    .package-desc { color: var(--muted); font-size: .96rem; margin-bottom: 22px; }
+    .feature-list { list-style: none; display: grid; gap: 10px; margin-bottom: 28px; }
+    .feature-list li { display: flex; gap: 10px; color: var(--text); font-size: .96rem; }
+    .price-card .btn { margin-top: auto; width: 100%; }
+
+    .report {
+      background: var(--bg);
+    }
+    .report-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 36px; align-items: center; }
+    .report-preview {
+      background: #F8FAFC;
+      color: #182A3B;
+      border-radius: 4px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .report-top { display: flex; justify-content: space-between; border-bottom: 2px solid #DDE5EF; padding-bottom: 14px; margin-bottom: 20px; }
+    .report-top strong { font-family: var(--font-display); color: #0F2438; }
+    .score { display: inline-flex; align-items: center; justify-content: center; width: 86px; height: 86px; border-radius: 50%; background: #E9F2ED; border: 8px solid #2F6B4F; font-family: var(--font-display); font-weight: 900; font-size: 1.7rem; color: #0F2438; }
+    .finding { margin: 15px 0; padding: 14px; background: #EEF3F7; border-left: 4px solid #B23A48; }
+    .finding.green { border-left-color: #2F6B4F; }
+    .finding strong { display: block; font-size: 1rem; color: #0F2438; }
+    .finding span { display: block; font-size: .9rem; color: #43576A; }
+
+    .faq { background: var(--bg2); border-top: 1px solid var(--line2); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    details {
+      background: rgba(15,36,56,.65);
+      border: 1px solid var(--line);
+      padding: 20px 22px;
+    }
+    summary { cursor: pointer; font-family: var(--font-display); color: var(--white); font-size: 1rem; }
+    details p { margin-top: 12px; color: var(--muted); font-size: .96rem; }
+
+    .cta { padding: 0; background: var(--bg); }
+    .cta-wrap { display: grid; grid-template-columns: .9fr 1.1fr; min-height: 570px; }
+    .cta-left { background: var(--green); padding: 64px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+    .cta-left::after { content: ''; position: absolute; right: -60px; bottom: -60px; width: 260px; height: 260px; border: 1px solid rgba(255,255,255,.18); transform: rotate(45deg); }
+    .cta-left h2 { color: var(--white); }
+    .cta-left p { color: rgba(255,255,255,.82); max-width: 440px; }
+    .cta-panel { background: var(--panel); padding: 52px; border-left: 1px solid var(--line); }
+    form { display: grid; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; font-family: var(--font-mono); color: var(--muted); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 6px; }
+    input, select, textarea {
+      width: 100%;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      color: var(--white);
+      padding: 13px 14px;
+      font: inherit;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--green2); }
+    textarea { min-height: 94px; resize: vertical; }
+    .form-note { font-family: var(--font-mono); color: var(--muted); font-size: .68rem; letter-spacing: .1em; }
+
+    footer { padding: 34px 0; border-top: 1px solid var(--line2); background: #0B1C2C; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; align-items: center; color: var(--muted); font-size: .86rem; }
+    .footer-inner a { color: var(--text); text-decoration: none; }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 54px; }
+      .hero-grid, .report-grid, .cta-wrap { grid-template-columns: 1fr; }
+      .stats-strip, .problem-grid, .audit-grid, .process-grid, .pricing-grid, .faq-grid { grid-template-columns: 1fr; }
+      .stat { border-right: 0; border-bottom: 1px solid var(--line); }
+      .stat:last-child { border-bottom: 0; }
+      .price-card.featured { transform: none; }
+      .included { grid-template-columns: 1fr; }
+      .cta-left, .cta-panel { padding: 40px 22px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 17px; }
+      .container { width: min(100% - 28px, 1160px); }
+      .brand { font-size: .78rem; letter-spacing: .08em; }
+      .btn-nav { display: none; }
+      .hero-actions .btn { width: 100%; }
+      .form-row { grid-template-columns: 1fr; }
+      h1 { font-size: 2.52rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="Cyber Knight Sec home">
+        <svg viewBox="0 0 34 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M17 1L3 6V19C3 27.5 17 37 17 37C17 37 31 27.5 31 19V6L17 1Z" stroke="#2F6B4F" stroke-width="1.6" fill="rgba(47,107,79,.12)"/>
+          <path d="M17 7L8 10V18C8 23 17 30 17 30C17 30 26 23 26 18V10L17 7Z" stroke="#AAB7C4" stroke-width="1" fill="rgba(15,36,56,.65)"/>
+          <line x1="17" y1="10" x2="17" y2="27" stroke="#2F6B4F" stroke-width="1.5"/>
+          <line x1="9" y1="18" x2="25" y2="18" stroke="#2F6B4F" stroke-width="1.5"/>
+        </svg>
+        Cyber Knight Sec
+      </a>
+      <ul class="nav-links">
+        <li><a href="#included">Audit</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#sample-report">Sample Report</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a class="btn btn-primary btn-nav" href="#contact">Request Audit</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">SPF / DKIM / DMARC / DNS Audit</div>
+          <h1>Stop Email Spoofing Before It Damages Your Reputation</h1>
+          <p class="hero-copy">Cyber Knight Sec reviews your <strong>SPF, DKIM, DMARC and DNS settings</strong> and delivers a plain-English security report within <strong>48 hours</strong>.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Request My Email Security Audit</a>
+            <a class="btn btn-secondary" href="#pricing">View Pricing</a>
+          </div>
+          <div class="micro-proof" aria-label="Service highlights">
+            <span><b class="check">✓</b> No email inbox access required</span>
+            <span><b class="check">✓</b> Built for nonprofit leaders</span>
+            <span><b class="check">✓</b> Setup help available</span>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Starter audit summary">
+          <div class="audit-card-top">
+            <div>
+              <div class="card-kicker">Primary Offer</div>
+              <div class="card-title">Starter Email Security Audit</div>
+            </div>
+            <div class="price">$299<small>48-hour report</small></div>
+          </div>
+          <ul class="included">
+            <li><span class="check">✓</span> SPF record validation</li>
+            <li><span class="check">✓</span> DKIM verification</li>
+            <li><span class="check">✓</span> DMARC policy review</li>
+            <li><span class="check">✓</span> DNS record inspection</li>
+            <li><span class="check">✓</span> Spoofing risk summary</li>
+            <li><span class="check">✓</span> Plain-English PDF</li>
+          </ul>
+          <p class="mini-note">Best for nonprofits, community organizations, churches, clinics, and small businesses that rely on donor, client, or public trust.</p>
+        </aside>
+      </div>
+
+      <div class="container stats-strip" aria-label="Audit facts">
+        <div class="stat"><strong>48 Hours</strong><span>Typical report delivery</span></div>
+        <div class="stat"><strong>SPF • DKIM • DMARC</strong><span>Email authentication review</span></div>
+        <div class="stat"><strong>Plain English</strong><span>Written for executives</span></div>
+        <div class="stat"><strong>$299</strong><span>Starter audit price</span></div>
+      </div>
+    </section>
+
+    <section class="problem" id="audit">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">The Risk</div>
+          <h2>Your domain may be easier to impersonate than you think.</h2>
+          <p class="section-lead">Email authentication records are public DNS records. If they are missing, duplicated, outdated, or too permissive, attackers may have an easier path to spoof your organization.</p>
+        </div>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <svg class="icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="14" width="34" height="24" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 18L24 29L41 18" stroke="currentColor" stroke-width="2"/><path d="M31 7L40 7L40 16" stroke="currentColor" stroke-width="2"/><path d="M40 7L28 19" stroke="currentColor" stroke-width="2"/></svg>
+            <strong>Fake emails can look real.</strong>
+            <p>A criminal can use your name, your domain, and urgent language to target donors, staff, vendors, or board members.</p>
+          </div>
+          <div class="problem-card">
+            <svg class="icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 5L9 11V23C9 33 24 42 24 42C24 42 39 33 39 23V11L24 5Z" stroke="currentColor" stroke-width="2"/><path d="M17 24L22 29L32 18" stroke="currentColor" stroke-width="2"/></svg>
+            <strong>Trust is part of your security posture.</strong>
+            <p>Nonprofits depend on reputation. A single impersonation attempt can create donor confusion and board-level concern.</p>
+          </div>
+          <div class="problem-card">
+            <svg class="icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="2"/><path d="M7 24H41" stroke="currentColor" stroke-width="2"/><path d="M24 7C18 13 16 19 16 24C16 29 18 35 24 41" stroke="currentColor" stroke-width="2"/><path d="M24 7C30 13 32 19 32 24C32 29 30 35 24 41" stroke="currentColor" stroke-width="2"/></svg>
+            <strong>DNS settings change over time.</strong>
+            <p>New email platforms, CRMs, fundraising tools, and vendors can leave old or conflicting records behind.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="included-section" id="included">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">What We Review</div>
+          <h2>One focused audit. Four critical areas.</h2>
+          <p class="section-lead">The audit is narrow by design. We inspect the records that control who is allowed to send email for your domain and how receiving mail servers should treat suspicious messages.</p>
+        </div>
+        <div class="audit-grid">
+          <div class="audit-item">
+            <div class="code">01 / SPF</div>
+            <h3>Sender Policy Framework</h3>
+            <p>We check whether your SPF record exists, is valid, has duplicate entries, exceeds lookup limits, or allows too many senders.</p>
+          </div>
+          <div class="audit-item">
+            <div class="code">02 / DKIM</div>
+            <h3>DomainKeys Identified Mail</h3>
+            <p>We verify DKIM alignment and identify whether your email platforms are properly signing outbound messages.</p>
+          </div>
+          <div class="audit-item">
+            <div class="code">03 / DMARC</div>
+            <h3>DMARC Policy</h3>
+            <p>We review your DMARC record, policy level, alignment settings, reporting destinations, and enforcement readiness.</p>
+          </div>
+          <div class="audit-item">
+            <div class="code">04 / DNS</div>
+            <h3>Email DNS Records</h3>
+            <p>We inspect MX, TXT, CNAME and related records that affect email authentication, deliverability, and domain trust.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">How It Works</div>
+          <h2>Simple process. Clear deliverable.</h2>
+        </div>
+        <div class="process-grid">
+          <div class="step"><h3>Submit your domain</h3><p>You provide your organization domain and public contact details. No password or inbox access is needed for the starter audit.</p></div>
+          <div class="step"><h3>We inspect public DNS</h3><p>We review SPF, DKIM, DMARC, MX, TXT, CNAME and related email authentication records.</p></div>
+          <div class="step"><h3>You receive the report</h3><p>Your plain-English PDF explains what is working, what is risky, and what should be fixed first.</p></div>
+          <div class="step"><h3>Optional setup help</h3><p>If you want assistance, we prepare recommended DNS records and implementation guidance for your admin or provider.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Pricing</div>
+          <h2>Start with the audit. Buy tools later.</h2>
+          <p class="section-lead">The first goal is to identify risk, not sell unnecessary software. Start with a focused review, then decide whether you need implementation support or ongoing monitoring.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <div class="package-name">Starter Audit</div>
+            <div class="package-price">$299</div>
+            <p class="package-desc">Best first step for organizations that want to know whether their email authentication is configured correctly.</p>
+            <ul class="feature-list">
+              <li><span class="check">✓</span> SPF status and risk review</li>
+              <li><span class="check">✓</span> DKIM verification guidance</li>
+              <li><span class="check">✓</span> DMARC policy assessment</li>
+              <li><span class="check">✓</span> Email DNS inspection</li>
+              <li><span class="check">✓</span> 5-page plain-English PDF</li>
+              <li><span class="check">✓</span> Delivered within 48 hours</li>
+            </ul>
+            <a class="btn btn-primary" href="#contact">Request Starter Audit</a>
+          </div>
+
+          <div class="price-card featured">
+            <span class="badge">Recommended after audit</span>
+            <div class="package-name">Fix-It Package</div>
+            <div class="package-price">$750</div>
+            <p class="package-desc">For organizations that want help preparing corrections after the audit identifies issues.</p>
+            <ul class="feature-list">
+              <li><span class="check">✓</span> Everything in Starter Audit</li>
+              <li><span class="check">✓</span> SPF cleanup plan</li>
+              <li><span class="check">✓</span> DMARC setup plan</li>
+              <li><span class="check">✓</span> DKIM verification guidance</li>
+              <li><span class="check">✓</span> DNS records prepared for admin/provider</li>
+              <li><span class="check">✓</span> One implementation review call</li>
+            </ul>
+            <a class="btn btn-primary" href="#contact">Ask About Fix-It</a>
+          </div>
+
+          <div class="price-card">
+            <div class="package-name">Monthly Monitor</div>
+            <div class="package-price">$99<span>/mo</span></div>
+            <p class="package-desc">For organizations that want monthly review after the foundation is corrected.</p>
+            <ul class="feature-list">
+              <li><span class="check">✓</span> Monthly SPF/DKIM/DMARC review</li>
+              <li><span class="check">✓</span> DNS change review</li>
+              <li><span class="check">✓</span> Deliverability health check</li>
+              <li><span class="check">✓</span> Vendor/domain change alerts</li>
+              <li><span class="check">✓</span> Monthly summary report</li>
+              <li><span class="check">✓</span> Cancel anytime</li>
+            </ul>
+            <a class="btn btn-secondary" href="#contact">Start Monitoring</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report" id="sample-report">
+      <div class="container report-grid">
+        <div>
+          <div class="label">Sample Deliverable</div>
+          <h2>Executive-ready reporting, not technical noise.</h2>
+          <p class="section-lead">The report is built for nonprofit leaders, board members, and busy operators. It explains risk in plain language and turns technical findings into prioritized action steps.</p>
+          <br />
+          <a class="btn btn-secondary" href="ck-nonprofit-report.html">View Sample Report</a>
+        </div>
+        <div class="report-preview" aria-label="Sample report preview">
+          <div class="report-top">
+            <div>
+              <strong>Cyber Knight Sec</strong><br />
+              <span>Email Security Audit</span>
+            </div>
+            <div class="score">72</div>
+          </div>
+          <div class="finding">
+            <strong>DMARC policy is not enforced</strong>
+            <span>Current policy allows monitoring but does not instruct receivers to quarantine or reject suspicious mail.</span>
+          </div>
+          <div class="finding green">
+            <strong>SPF record found</strong>
+            <span>SPF exists, but authorized senders and lookup count should be reviewed before enforcement.</span>
+          </div>
+          <div class="finding">
+            <strong>DKIM selector confirmation needed</strong>
+            <span>DKIM should be verified for each active email platform and marketing service.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">FAQ</div>
+          <h2>Common questions before requesting an audit.</h2>
+        </div>
+        <div class="faq-grid">
+          <details open>
+            <summary>Do you need access to our email account?</summary>
+            <p>No. The Starter Audit begins with public DNS records. If deeper access is ever needed for implementation, that is discussed separately.</p>
+          </details>
+          <details>
+            <summary>Will you make DNS changes for us?</summary>
+            <p>The Starter Audit is read-only. The Fix-It Package prepares recommended records and implementation guidance for your administrator, registrar, hosting provider, or email vendor.</p>
+          </details>
+          <details>
+            <summary>Who is this for?</summary>
+            <p>Nonprofits, churches, clinics, community organizations, and small businesses that rely on trusted email communication.</p>
+          </details>
+          <details>
+            <summary>What happens after I submit the form?</summary>
+            <p>You receive a reply to confirm your domain, scope, and payment instructions. After payment, the report is typically delivered within 48 hours.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="cta-wrap">
+        <div class="cta-left">
+          <div class="label" style="color:rgba(255,255,255,.72);">Request Audit</div>
+          <h2>Protect your domain before someone else uses it.</h2>
+          <p>Submit your organization details and the domain you want reviewed. Cyber Knight Sec will respond with the next step for your SPF, DKIM, DMARC and DNS audit.</p>
+          <br />
+          <p><strong>Email:</strong> <a href="mailto:engage@cyberknightsec.com">engage@cyberknightsec.com</a></p>
+        </div>
+        <div class="cta-panel">
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div>
+                <label for="firstName">First Name</label>
+                <input id="firstName" name="firstName" type="text" placeholder="Maria" required />
+              </div>
+              <div>
+                <label for="lastName">Last Name</label>
+                <input id="lastName" name="lastName" type="text" placeholder="Reyes" required />
+              </div>
+            </div>
+            <div>
+              <label for="email">Organization Email</label>
+              <input id="email" name="email" type="email" placeholder="you@yournonprofit.org" required />
+            </div>
+            <div>
+              <label for="org">Organization Name</label>
+              <input id="org" name="organization" type="text" placeholder="Your Organization" required />
+            </div>
+            <div>
+              <label for="domain">Domain to Review</label>
+              <input id="domain" name="domain" type="text" placeholder="example.org" required />
+            </div>
+            <div>
+              <label for="package">Package Interest</label>
+              <select id="package" name="package" required>
+                <option value="" disabled selected>Select one</option>
+                <option>Starter Audit — $299</option>
+                <option>Fix-It Package — $750</option>
+                <option>Monthly Monitor — $99/month</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div>
+              <label for="message">Anything we should know?</label>
+              <textarea id="message" name="message" placeholder="Example: We use Google Workspace and Mailchimp."></textarea>
+            </div>
+            <button class="btn btn-primary" id="submitBtn" type="submit">Request My Email Security Audit</button>
+            <p class="form-note">No spam. No pressure. Public DNS review first.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 Cyber Knight Sec. A cybersecurity service brand operated by Evergreen Supply Solutions LLC.</div>
+      <div><a href="mailto:engage@cyberknightsec.com">engage@cyberknightsec.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = "Request captured — email engage@cyberknightsec.com";
+      btn.style.background = '#24553F';
+      btn.disabled = true;
+    }
+  </script>
+</body>
+</html>
