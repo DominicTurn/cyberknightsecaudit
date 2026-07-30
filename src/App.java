@@ -1,7 +1,6 @@
-
 //****************************************************************************//
 /*
- * Project: Cyber Knight Sec - Audit
+ * Project: Cyber Knight Sec - Scout
  * Author: Dominic Turner
  * File: App.java
  *
@@ -38,7 +37,7 @@ public class App {
         String domainInput =
                 scanner.nextLine().trim().toLowerCase();
 
-        // Stop the program if the domain entry is invalid
+        // Stop the program when the input is not a valid domain
         if (!isValidDomain(domainInput)) {
             System.out.println();
             System.out.println("Invalid domain entry.");
@@ -50,19 +49,28 @@ public class App {
             return;
         }
 
-        // Create an object to store the domain and audit results
+        // Store the domain and its audit results
         ClientDomain prospect =
                 new ClientDomain(domainInput);
+
+        // DKIM has no fixed record location, so allow the analyst to
+        // supply a known selector for a definitive check. The tool
+        // will also probe a list of common provider selectors either way.
+        System.out.print(
+                "Enter a known DKIM selector, if any (press Enter to skip): "
+        );
+
+        String dkimSelectorInput = scanner.nextLine().trim();
 
         System.out.println();
         System.out.println(
                 "Performing live email security scan..."
         );
 
-        // Perform the DNS audit
-        auditService.runAudit(prospect);
+        // Run the DNS audit
+        auditService.runAudit(prospect, dkimSelectorInput);
 
-        // Display the completed audit report
+        // Display the completed report
         printAuditReport(prospect);
 
         scanner.close();
@@ -95,32 +103,49 @@ public class App {
                 "DMARC Record:  " + prospect.getDmarcRecord()
         );
         System.out.println(
+                "DKIM Record:   " + prospect.getDkimRecord()
+        );
+
+        if (!prospect.getDkimRecord().equals("MISSING")) {
+            System.out.println(
+                    "DKIM Selector: " + prospect.getDkimSelector()
+            );
+        }
+
+        System.out.println(
                 "----------------------------------------------"
         );
         System.out.println(
                 "STATUS: " + prospect.getAssessment()
         );
 
-        // Recommend an SPF record when one was not found
-        if (prospect.isSpfMissing()) {
+        // Print recommendations for each missing record
+        if (prospect.getSpfRecord().equals("MISSING")) {
             System.out.println(
                     "Recommendation: Add or review the SPF record."
             );
         }
 
-        // Recommend a DMARC policy when one was not found
-        if (prospect.isDmarcMissing()) {
+        if (prospect.getDmarcRecord().equals("MISSING")) {
             System.out.println(
                     "Recommendation: Add or review the DMARC policy."
             );
         }
 
-        // Recommend a deeper policy review when both records exist
-        if (!prospect.isSpfMissing()
-                && !prospect.isDmarcMissing()) {
+        if (prospect.getDkimRecord().equals("MISSING")) {
+            System.out.println(
+                    "Recommendation: Add DKIM signing, or re-run with the"
+                            + " client's known selector to confirm."
+            );
+        }
+
+        if (!prospect.getSpfRecord().equals("MISSING")
+                && !prospect.getDmarcRecord().equals("MISSING")
+                && !prospect.getDkimRecord().equals("MISSING")) {
 
             System.out.println(
-                    "Recommendation: Review SPF and DMARC policy strength."
+                    "Recommendation: Review SPF, DKIM, and DMARC policy"
+                            + " strength."
             );
         }
 
