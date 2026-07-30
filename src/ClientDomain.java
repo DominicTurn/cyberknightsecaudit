@@ -11,19 +11,21 @@
 
 public class ClientDomain {
 
-    // Default value used when a DNS record has not been found
-    private static final String MISSING = "MISSING";
-
+    // Store the domain and audit results
     private String domainName;
     private String spfRecord;
     private String dmarcRecord;
+    private String dkimRecord;
+    private String dkimSelector;
     private String assessment;
 
     // Create a new domain with default audit values
     public ClientDomain(String domainName) {
         this.domainName = domainName;
-        this.spfRecord = MISSING;
-        this.dmarcRecord = MISSING;
+        this.spfRecord = "MISSING";
+        this.dmarcRecord = "MISSING";
+        this.dkimRecord = "MISSING";
+        this.dkimSelector = "NONE";
         this.assessment = "NOT YET ASSESSED";
     }
 
@@ -47,21 +49,27 @@ public class ClientDomain {
         this.dmarcRecord = dmarcRecord;
     }
 
+    public String getDkimRecord() {
+        return dkimRecord;
+    }
+
+    public void setDkimRecord(String dkimRecord) {
+        this.dkimRecord = dkimRecord;
+    }
+
+    public String getDkimSelector() {
+        return dkimSelector;
+    }
+
+    public void setDkimSelector(String dkimSelector) {
+        this.dkimSelector = dkimSelector;
+    }
+
     public String getAssessment() {
         return assessment;
     }
 
     public void setAssessment(String assessment) {
         this.assessment = assessment;
-    }
-
-    // Return true when no SPF record was found
-    public boolean isSpfMissing() {
-        return spfRecord.equals(MISSING);
-    }
-
-    // Return true when no DMARC record was found
-    public boolean isDmarcMissing() {
-        return dmarcRecord.equals(MISSING);
     }
 }
