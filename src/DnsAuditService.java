@@ -13,24 +13,38 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.InitialDirContext;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DnsAuditService {
 
-    private static final String SPF_IDENTIFIER = "v=spf1";
-    private static final String DMARC_IDENTIFIER = "v=dmarc1";
+    // Selectors commonly used by mainstream email/marketing providers.
+    // DKIM has no fixed record location, so we probe these as a best
+    // effort in addition to any selector the analyst supplies directly.
+    private static final String[] COMMON_DKIM_SELECTORS = {
+            "google", "selector1", "selector2", "s1", "s2", "k1", "k2",
+            "dkim", "default", "mail", "smtp", "smtpapi",
+            "sendgrid", "mailgun", "mailjet", "mandrill", "mlsend",
+            "zoho", "pm", "cm", "everlytickey1", "everlytickey2"
+    };
 
     public void runAudit(ClientDomain client) {
+        runAudit(client, null);
+    }
+
+    public void runAudit(ClientDomain client, String dkimSelector) {
         InitialDirContext context = null;
 
         try {
             // Create the DNS connection
             context = new InitialDirContext();
 
-            // Run the SPF and DMARC lookups
+            // Run the SPF, DMARC, and DKIM checks
             findSpfRecord(context, client);
             findDmarcRecord(context, client);
+            findDkimRecord(context, client, dkimSelector);
 
-            // Determine the final assessment
+            // Assign an assessment based on the records found
             setAssessment(client);
 
         } catch (NamingException e) {
@@ -59,7 +73,7 @@ public class DnsAuditService {
             ClientDomain client) {
 
         try {
-            // Request the TXT records from the main domain
+            // Request all TXT records from the main domain
             Attributes attributes = context.getAttributes(
                     "dns:/" + client.getDomainName(),
                     new String[]{"TXT"}
@@ -68,14 +82,11 @@ public class DnsAuditService {
             Attribute txtRecords = attributes.get("TXT");
 
             if (txtRecords != null) {
-                // Search each TXT record for the SPF identifier
+                // Search the TXT records for an SPF entry
                 for (int i = 0; i < txtRecords.size(); i++) {
-                   String record = txtRecords.get(i).toString();
+                    String record = txtRecords.get(i).toString();
 
-                    // Remove quotation marks added to the DNS
-                    record = record.replace("\"", "");
-
-                    if (record.toLowerCase().contains(SPF_IDENTIFIER)) {
+                    if (record.toLowerCase().contains("v=spf1")) {
                         client.setSpfRecord(record);
                         break;
                     }
@@ -104,14 +115,11 @@ public class DnsAuditService {
             Attribute txtRecords = attributes.get("TXT");
 
             if (txtRecords != null) {
-                // Search each TXT record for the DMARC identifier
+                // Search the TXT records for a DMARC entry
                 for (int i = 0; i < txtRecords.size(); i++) {
                     String record = txtRecords.get(i).toString();
 
-                    // Remove quotation marks added to the DNS response
-                    record = record.replace("\"", "");
-
-                    if (record.toLowerCase().contains(DMARC_IDENTIFIER)) {
+                    if (record.toLowerCase().contains("v=dmarc1")) {
                         client.setDmarcRecord(record);
                         break;
                     }
@@ -126,10 +134,65 @@ public class DnsAuditService {
         }
     }
 
-    private void setAssessment(ClientDomain client) {
-        boolean spfFound = !client.isSpfMissing();
-        boolean dmarcFound = !client.isDmarcMissing();
+    private void findDkimRecord(
+            InitialDirContext context,
+            ClientDomain client,
+            String customSelector) {
 
+        // Build the list of selectors to try, checking any
+        // analyst-supplied selector first, then the common list
+        List<String> selectors = new ArrayList<>();
+
+        if (customSelector != null && !customSelector.isBlank()) {
+            selectors.add(customSelector.trim());
+        }
+
+        for (String selector : COMMON_DKIM_SELECTORS) {
+            if (!selectors.contains(selector)) {
+                selectors.add(selector);
+            }
+        }
+
+        for (String selector : selectors) {
+            try {
+                // DKIM records live at <selector>._domainkey.<domain>
+                Attributes attributes = context.getAttributes(
+                        "dns:/" + selector + "._domainkey."
+                                + client.getDomainName(),
+                        new String[]{"TXT"}
+                );
+
+                Attribute txtRecords = attributes.get("TXT");
+
+                if (txtRecords != null && txtRecords.size() > 0) {
+                    String record = txtRecords.get(0).toString();
+
+                    client.setDkimRecord(record);
+                    client.setDkimSelector(selector);
+                    return;
+                }
+
+            } catch (NamingException e) {
+                // No record under this selector; try the next one
+            }
+        }
+
+        System.out.println(
+                "No DKIM record found for: " + client.getDomainName()
+                        + " (checked " + selectors.size()
+                        + " selector(s); provide a known selector"
+                        + " for a definitive check)"
+        );
+    }
+
+    private void setAssessment(ClientDomain client) {
+        boolean spfFound =
+                !client.getSpfRecord().equals("MISSING");
+
+        boolean dmarcFound =
+                !client.getDmarcRecord().equals("MISSING");
+
+        // Determine the basic email-authentication status
         if (spfFound && dmarcFound) {
             client.setAssessment(
                     "BASIC EMAIL AUTHENTICATION DETECTED"
